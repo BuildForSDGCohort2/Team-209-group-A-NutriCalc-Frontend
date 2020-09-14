@@ -1,0 +1,15 @@
+.container{
+   display: flex;
+   flex-direction: column; 
+   justify-content: center;
+   align-items: center;
+}
+
+.or{
+    justify-content: center;
+}
+/* #facebookBtn{
+    color: #0c0e70;
+    
+} */
+
