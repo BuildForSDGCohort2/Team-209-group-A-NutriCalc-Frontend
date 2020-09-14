@@ -10,7 +10,7 @@ const Login  = (e)=> {
     const [redirect,setRedirect]=useState(null)
     const [password,setPassword]=useState('')
     const [email,setEmail]=useState('')
-    const [{},dispatch]=useStateValue()
+    const [{user},dispatch]=useStateValue()
     const handleSubmit=(e)=>{
       e.preventDefault();
       // send data to auth API and dispatch SET_USER
@@ -20,15 +20,18 @@ const Login  = (e)=> {
     }
     const handleLogin =(e)=>{
         e.preventDefault()
+        console.log(user)
         // send data to facebook auth API and dispatch SET_USER
         auth.signInWithPopup(provider).then((result)=>{
             console.log(result)
-            const token = result.credential.accessToken;
             const user = result.user;
             dispatch({
                 type:actionTypes.SET_USER,
                 user:user
             })
+            if (user?.isNewUser){
+                // send data to database
+            }
         }).catch((error)=>{alert(error.message)})
         setRedirect(true)
         // if sign in with facebook or google there isno data and dispatchh SET_USER
@@ -82,8 +85,11 @@ const Login  = (e)=> {
             </button>
             <Link to="/register">dont have an account? Register here</Link>
           </form>
-          <hr />
-          <h6 className="or">or</h6>
+         <hr/>
+          <div class="or-text d-flex align-items-center justify-content-center">
+            <span>or</span>
+          </div>
+          <hr/>
           <button
             type="button"
             onClick={handleLogin}

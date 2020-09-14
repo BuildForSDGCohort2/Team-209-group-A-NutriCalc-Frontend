@@ -10,7 +10,8 @@ import Navigation from './components/Navigation';
 import Login from "./components/Login";
 import Register from "./components/Register";
 function App () {
-    const [{ user }, dispatch] = useStateValue();
+    const [{ user }] = useStateValue();
+    
     return (user?
       <BrowserRouter>
         <div>
