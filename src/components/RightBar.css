@@ -1,0 +1,13 @@
+.right-bar{
+    flex: 0.2;
+    flex-direction: column;
+    justify-self: end;
+    background-color: rgb(126, 79, 36);
+    border-radius: 10px;
+    height: 80vh;
+}
+.right-bar-content{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}

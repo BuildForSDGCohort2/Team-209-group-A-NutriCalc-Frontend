@@ -1,5 +1,8 @@
 import React,{ useState } from 'react'
 import {  Link, Redirect } from "react-router-dom";
+import { useStateValue } from "../StateProvider";
+import { actionTypes } from "../reducer";
+
 
 const Register= ()=>{
    const [email,setEmail]=useState("")
@@ -7,7 +10,15 @@ const Register= ()=>{
    const [confPassword, setconfPassword] = useState("");
    const [username, setUsername] = useState("");
    const [redirect,setRedirect]=useState(null)
-
+   const [{user},dispatch]=useStateValue()
+   const handleLinkClick=(e)=>{
+     if (user?.name==="guest"){
+     dispatch({
+       type: actionTypes.SET_USER,
+       user: {},
+     });
+    } 
+   }
    const handleSubmit= (e)=>{
      e.preventDefault()
     //  send info to AUTH API
@@ -84,7 +95,7 @@ const Register= ()=>{
                 Register
               </button>
 
-              <Link to="/login">already have an account? Login here</Link>
+              <Link to="/login" onClick={handleLinkClick}>already have an account? Login here</Link>
 
               {/* <Link to="/register">dont have an account? Register here</Link> */}
             </form>

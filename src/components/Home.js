@@ -1,27 +1,46 @@
-import React,{useEffect} from 'react';
-import getLocation from "./getLocation"
+import React,{ useEffect, useState } from 'react';
+import getWeather from "./getWeather"
+import { useStateValue } from "../StateProvider"
+import "./Home.css"
+import Weather from "./Weather"
+
 
 
  
 const Home = () => {
-    useEffect(() => {
-      getLocation();
-    }, []);
+
+    const[{cood}]= useStateValue()
+     const [weather,setWeather]=useState({})
+  
+   
+    useEffect(()=>{
+      
+      cood? getWeather(cood.lat, cood.long): console.log("no coods")
+  },[cood, cood.lat, cood.long])
+ 
     return (
       <div>
-        <div>
-          <h1>NutriCalc</h1>
-          <h5>Your farm inputs calculator</h5>
-          <h6>Its easy! Click on new farm input, choose the type of crop, the type of fertilizer input, the land acreage </h6>
-        <button></button>
+        <div></div>
+        <div className="main-container">
+          <div className="home-container">
+            <h6>
+              Its easy! Click on new farm input, choose the type of crop, the
+              type of fertilizer input, the land acreage{" "}
+            </h6>
+            <h6>weather</h6>
+            <div className="weather">
+              <h5>City: Kitale</h5>
+              <h6>Weather description</h6>
+              <p>
+                qrggugbbbbxgbkXBKGXSgtqpgkxgahghxaxxgyqtxoJHsLBXBZJKjkJZ
+                zgbKHGZBZHBGDXHHKzhgzhhv
+              </p>
+            </div>
+            <Weather />
+          </div>
         </div>
-        <div className='' style={{display:"flex"}}>
-            <div style={{flex:3,flexDirection:"column"}}>
-                
-            </div>
-            <div style={{flex:7,flexDirection:"column"}}>
-                
-            </div>
+        <div>
+          <h5>Footer area</h5>
         </div>
       </div>
     );

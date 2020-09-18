@@ -4,6 +4,7 @@ export const initialState = {
 
 export const actionTypes = {
     SET_USER: "SET_USER",
+    SET_COOD: "SET_COOD"
 }
 const reducer = (state,action) =>{
     console.log(action)
@@ -13,6 +14,11 @@ const reducer = (state,action) =>{
                 ...state,
                 user:action.user,
             }
+            case actionTypes.SET_COOD:
+                return{
+                    ...state,
+                    cood:action.cood
+                }
         default:
             return state
     }

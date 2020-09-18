@@ -1,0 +1,7 @@
+.side{
+    display: flex;
+    flex: 1;
+    align-content: space-between;
+    justify-content: space-between;
+
+}

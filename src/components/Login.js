@@ -6,17 +6,32 @@ import FacebookIcon from "@material-ui/icons/Facebook";
 import {provider, auth} from "../firebase";
 import { actionTypes } from "../reducer"
 
-const Login  = (e)=> {
+const Login  = ()=> {
     const [redirect,setRedirect]=useState(null)
     const [password,setPassword]=useState('')
     const [email,setEmail]=useState('')
     const [{user},dispatch]=useStateValue()
+
     const handleSubmit=(e)=>{
-      e.preventDefault();
       // send data to auth API and dispatch SET_USER
       console.log(email, password);
+      dispatch({
+                type:actionTypes.SET_USER,
+                user:{
+                  email:email,
+                  password:password
+                }
+            })
       setRedirect(true);
       
+    }
+    const handleLinkClick= (e)=>{
+      
+      dispatch({
+                type:actionTypes.SET_USER,
+                user:{name:"guest"}
+            })
+
     }
     const handleLogin =(e)=>{
         e.preventDefault()
@@ -83,9 +98,9 @@ const Login  = (e)=> {
             >
               Login
             </button>
-            <Link to="/register">dont have an account? Register here</Link>
+            <Link to="/register" onClick={handleLinkClick}>dont have an account? Register here</Link>
           </form>
-         <hr/>
+          <hr/>
           <div class="or-text d-flex align-items-center justify-content-center">
             <span>or</span>
           </div>

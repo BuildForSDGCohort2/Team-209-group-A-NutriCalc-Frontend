@@ -1,7 +1,6 @@
-import React from 'react';
+import React, { useEffect }from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { useStateValue } from "./StateProvider";
- 
 import Home from './components/Home';
 import About from './components/About';
 import Contact from './components/Contact';
@@ -9,13 +8,42 @@ import Error from './components/Error';
 import Navigation from './components/Navigation';
 import Login from "./components/Login";
 import Register from "./components/Register";
+import SideBar from "./components/SideBar"
+import RightBar from "./components/RightBar"
+import { actionTypes } from "./reducer"
+import "./App.css"
+
 function App () {
-    const [{ user }] = useStateValue();
-    
-    return (user?
+    const [{ user },dispatch] = useStateValue();
+    useEffect(()=>{
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(displayLocationInfo);
+      }
+
+      function displayLocationInfo(position) {
+        const lat = position.coords.longitude;
+        const long = position.coords.latitude;
+        console.log(`longitude: ${long} | latitude: ${lat}`);
+        dispatch({
+          type:actionTypes.SET_COOD,
+          cood:{lat:lat,long:long}
+        })
+      }
+    },[dispatch])
+  
+
+    if (user?.name==="guest"){
+      return  < Register/>
+    } 
+      
+    return user ? (
       <BrowserRouter>
         <div>
           <Navigation />
+          <div className="side">
+            <SideBar />
+            <RightBar />
+          </div>
           <Switch>
             <Route path="/" component={Home} exact />
             <Route path="/about" component={About} />
@@ -25,7 +53,9 @@ function App () {
             <Route component={Error} />
           </Switch>
         </div>
-      </BrowserRouter>: <Login/>
+      </BrowserRouter>
+    ) : (
+      <Login />
     );
   }
 

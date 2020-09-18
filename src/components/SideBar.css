@@ -1,0 +1,14 @@
+.side-bar{
+    flex: 0.2;
+    flex-direction: column;
+    background-color: rgb(26, 29, 29);
+    height: 80vh;
+    border-radius: 10px;
+    justify-self: start;
+    justify-content: center;
+}
+.side-bar-content{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
