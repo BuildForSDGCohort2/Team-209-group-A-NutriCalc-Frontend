@@ -1,4 +1,4 @@
-import React,{ useEffect, useState } from 'react';
+import React,{ useEffect } from 'react';
 import getWeather from "./getWeather"
 import { useStateValue } from "../StateProvider"
 import "./Home.css"
@@ -10,7 +10,7 @@ import Weather from "./Weather"
 const Home = () => {
 
     const[{cood}]= useStateValue()
-     const [weather,setWeather]=useState({})
+    //  const [weather,setWeather]=useState({})
   
    
     useEffect(()=>{
