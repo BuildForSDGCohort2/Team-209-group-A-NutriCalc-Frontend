@@ -59,7 +59,7 @@ const Login  = ()=> {
     return (
       <div className="container">
         <div className="page-header">
-          <h2>Sign In</h2>
+          <h2>Sign In to NutriCalc</h2>
         </div>
         <div className="form-body">
           <form onSubmit={handleSubmit}>
@@ -94,7 +94,7 @@ const Login  = ()=> {
             <button
               type="submit"
               onClick={handleSubmit}
-              className="btn btn-primary btn-sm btn-block"
+              className="btn btn-success btn-sm btn-block"
             >
               Login
             </button>

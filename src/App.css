@@ -1,7 +1,48 @@
-.side{
+.main{
     display: flex;
     flex: 1;
-    align-content: space-between;
     justify-content: space-between;
+    height: 100vh;
+    margin-top: 20px;
+    overflow: hidden;
 
+}
+
+.side-bar{
+    flex: 0.2;
+    flex-direction: column;
+    background-color: rgb(223, 236, 236);
+    height: 80vh;
+    border-radius: 10px;
+    justify-content: center;
+    overflow: hidden;
+   
+}
+
+.mid{
+    flex: 0.6;
+    flex-direction: column;
+    border-radius: 10px;
+    justify-content: center;
+    background-color: rgb(255, 255, 255);
+    border: darkblue;
+    height: 80vh;
+    overflow: auto;
+    margin-left: 20px;
+    margin-right: 20px;
+    
+}
+.mid ::-webkit-scrollbar{
+    display: none;
+    width: 0em !important;
+}
+.right-bar{
+    flex: 0.2;
+    flex-direction: column;
+    background-color: rgb(126, 79, 36);
+    border-radius: 10px;
+    height: 80vh;
+    justify-content: center;
+    border: darkblue;
+    overflow: hidden;
 }
