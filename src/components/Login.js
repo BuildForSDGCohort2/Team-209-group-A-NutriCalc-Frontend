@@ -1,59 +1,95 @@
-import React,{useState} from "react";
+import React,{useState, useEffect, useContext } from "react";
 import "./Login.css";
 import { Link, Redirect } from "react-router-dom";
-import { useStateValue } from "../StateProvider";
+import StateContext from "../Context/stateContext";
 import FacebookIcon from "@material-ui/icons/Facebook";
 import {provider, auth} from "../firebase";
-import { actionTypes } from "../reducer"
+import { actionTypes } from "../Context/stateReducer"
+import getLogin from "../API/getLogin"
+import Cookies from "js-cookie";
+
 
 const Login  = ()=> {
     const [redirect,setRedirect]=useState(null)
+    const [userLoggedIn, setUserLoggedIn] = useState(null);
     const [password,setPassword]=useState('')
     const [email,setEmail]=useState('')
-    const [{user},dispatch]=useStateValue()
+    const contextValue = useContext(StateContext);
+    
+    const { dispatch } = contextValue;
+    const csrftoken = Cookies.get("csrftoken");
 
-    const handleSubmit=(e)=>{
-      // send data to auth API and dispatch SET_USER
-      console.log(email, password);
-      dispatch({
-                type:actionTypes.SET_USER,
-                user:{
-                  email:email,
-                  password:password
-                }
-            })
-      setRedirect(true);
-      
+   async function handleSubmit(e) {
+    // send data to auth API and dispatch SET_USER
+    e.preventDefault();
+    const data = {
+      email: email,
+      password: password,
+    };
+    try {
+      const result = await getLogin(data, csrftoken)
+        .then((response) => {
+          console.log(response);
+           if (response.status === 200) {
+            setUserLoggedIn(result.json());
+            dispatch({
+              type: actionTypes.SET_USER,
+              payload: userLoggedIn,
+            });
+            setRedirect(true);
+        }
+
+          return response;
+        })
+        .catch((error) => {
+          return error.message;
+        });
+     
+      }
+    
+    catch (error) {
+      console.log(error);
     }
-    const handleLinkClick= (e)=>{
+    setEmail("");
+    setPassword("");
+  }
+
+    useEffect(()=>{
       
+    },[])
+    
+    const handleLinkClick= (e)=>{
+      const data={user:{name:"guest"}}
       dispatch({
                 type:actionTypes.SET_USER,
-                user:{name:"guest"}
+                payload:data
             })
 
     }
     const handleLogin =(e)=>{
-        e.preventDefault()
-        console.log(user)
+        // e.preventDefault()
         // send data to facebook auth API and dispatch SET_USER
         auth.signInWithPopup(provider).then((result)=>{
             console.log(result)
             const user = result.user;
+            console.log(user)
             dispatch({
                 type:actionTypes.SET_USER,
-                user:user
+                payload:user
             })
-            if (user?.isNewUser){
+            if (!result?.additionalUserInfo.isNewUser){
                 // send data to database
+                alert("not newUser")
+                return <Redirect to="/register"/>;
+            }else{
+              seeFailedResult(result)
             }
-        }).catch((error)=>{alert(error.message)})
-        setRedirect(true)
-        // if sign in with facebook or google there isno data and dispatchh SET_USER
-
-            
-    }
-    if (redirect){
+        }).catch((error)=>{
+          console.log(error)
+        // if sign in with facebook or google there isno data and dispatchh SET_USER       
+    })
+  }
+    if(redirect){
         return <Redirect to="/"/>
     }
     return (
@@ -101,7 +137,7 @@ const Login  = ()=> {
             <Link to="/register" onClick={handleLinkClick}>dont have an account? Register here</Link>
           </form>
           <hr/>
-          <div class="or-text d-flex align-items-center justify-content-center">
+          <div className="or-text d-flex align-items-center justify-content-center">
             <span>or</span>
           </div>
           <hr/>
@@ -119,3 +155,7 @@ const Login  = ()=> {
 }
 
 export default Login
+
+function seeFailedResult(result) {
+  console.log(result);
+}

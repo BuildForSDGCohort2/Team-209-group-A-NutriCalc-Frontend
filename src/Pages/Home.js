@@ -1,18 +1,18 @@
-import React, {useEffect} from 'react';
+import React, {useEffect,useContext} from 'react';
 import "./Home.css"
-import Weather from "./Weather"
+import Weather from "../components/Weather"
 // import weatherData from "./getWeather"
-import { useStateValue } from '../StateProvider';
+import StateContext from "../Context/stateContext";
+
 
 const Home = () => {
-  const { cood }= useStateValue()
-  // const [weather,setWeather]=useState({})
+  const contextValue= useContext(StateContext);
+  const{ state } = contextValue;
+  console.log(state.coordinates)
   useEffect(()=>{
-  //  const response = weatherData(cood);
-  // setWeather(response);
-  }, [cood]);
-  // console.log(weather);
-    
+ 
+  }, []);
+  
     return (
       <div className="main-container">
         <div className="home-container">

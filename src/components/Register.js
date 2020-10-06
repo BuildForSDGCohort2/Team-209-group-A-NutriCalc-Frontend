@@ -1,7 +1,7 @@
-import React,{ useState } from 'react'
+import React,{ useState,useContext } from 'react'
 import {  Link, Redirect } from "react-router-dom";
-import { useStateValue } from "../StateProvider";
-import { actionTypes } from "../reducer";
+import StateContext from "../Context/stateContext";
+import { actionTypes } from "../Context/stateReducer";
 
 
 const Register= ()=>{
@@ -10,7 +10,9 @@ const Register= ()=>{
    const [confPassword, setconfPassword] = useState("");
    const [username, setUsername] = useState("");
    const [redirect,setRedirect]=useState(null)
-   const [{user},dispatch]=useStateValue()
+   const stateContext = useContext(StateContext);
+   const [{ user },dispatch]= stateContext;
+   
    const handleLinkClick=(e)=>{
      if (user?.name==="guest"){
      dispatch({

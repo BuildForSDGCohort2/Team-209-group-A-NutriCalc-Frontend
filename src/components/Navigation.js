@@ -1,31 +1,33 @@
 import React from 'react';
 import "./Navigation.css"
-import { useStateValue } from "../StateProvider";
+// import { useStateValue } from "../StateProvider";
 import { NavLink } from 'react-router-dom';
+// import { RiQuillPenLine } from "react-icons/ri";
  
 const Navigation = () => {
-    const [{ user }] = useStateValue();
+    // const [{ user }] = useStateValue();
     
 
     return (
       <div className="nav">
+          {/* <RiQuillPenLine size={40} /> */}
         <div className="nav-header">
           <h1>NutriCalc</h1>
           <h5>Your farm inputs calculator</h5>
         </div>
 
-        <NavLink classname="nav-link" to="/">
+        <NavLink className="nav-link" to="/">
           Home
         </NavLink>
-        <NavLink classname="nav-link" to="/about">
+        <NavLink className="nav-link" to="/about">
           About
         </NavLink>
-        <NavLink classname="nav-link" to="/contact">
+        <NavLink className="nav-link" to="/contact">
           Contact
         </NavLink>
-        <NavLink classname="nav-link" to={user?"/logout":"/login"} >
+        {/* <NavLink classname="nav-link" to={user?"/logout":"/login"}>
           {user?"Logout":"Login"}
-        </NavLink>
+        </NavLink> */}
       </div>
     );
 }

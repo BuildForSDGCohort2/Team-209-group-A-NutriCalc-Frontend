@@ -1,17 +1,19 @@
-import React,{useState} from "react";
+import React,{useState,useContext} from "react";
 import { Redirect } from "react-router-dom";
-import { useStateValue } from "../StateProvider";
-import { actionTypes } from "../reducer";
+import StateContext from "../Context/stateContext";
+import { actionTypes } from "../Context/stateReducer"
+
 
 
 const Logout = () => {
   const [redirect, setRedirect] = useState(null);
-  const [{},dispatch] = useStateValue();
-  
+  const contextValue = useContext(StateContext);
+
+  const { dispatch } = contextValue;
     // set user to none
         dispatch({
           type: actionTypes.SET_USER,
-          user: {},
+          payload:null,
         });
     setRedirect(true);
     if (redirect) {
