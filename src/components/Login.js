@@ -31,19 +31,20 @@ const Login  = ()=> {
         .then((response) => {
           console.log(response);
            if (response.status === 200) {
-            setUserLoggedIn(result.json());
+            setUserLoggedIn(response);
             dispatch({
               type: actionTypes.SET_USER,
               payload: userLoggedIn,
             });
             setRedirect(true);
         }
-
+        
           return response;
         })
         .catch((error) => {
           return error.message;
         });
+        console.log(result);
      
       }
     
