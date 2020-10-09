@@ -28,26 +28,29 @@ const Login  = ()=> {
     };
     try {
       const result = await getLogin(data, csrftoken)
-        .then((response) => {
-          console.log(response);
-           if (response.status === 200) {
-            setUserLoggedIn(response);
-            dispatch({
-              type: actionTypes.SET_USER,
-              payload: userLoggedIn,
-            });
-            setRedirect(true);
+        .then((response)=> {
+      return response;
+        }).then((data)=>{
+          console.log(data);
+          console.log(data.ok);
+          console.log(data.status);
+           if (data.ok) {
+             setUserLoggedIn(data);
+             dispatch({
+               type: actionTypes.SET_USER,
+               payload: userLoggedIn,
+             });
+             setRedirect(true);
+           }
         }
-        
-          return response;
-        })
+
+        )
         .catch((error) => {
           return error.message;
         });
         console.log(result);
      
       }
-    
     catch (error) {
       console.log(error);
     }

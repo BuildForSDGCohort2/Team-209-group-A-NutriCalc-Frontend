@@ -1,113 +1,127 @@
-import React, { useEffect,useState,useContext } from 'react'
-import StateContext from "../Context/stateContext";
+import React from 'react'
+// import StateContext from "../Context/stateContext";
+// import Cookies from "js-cookie";
+// import getPlants from "../API/getPlants"
+// import getFertilizers from "../API/getFertilizers"
+// import getFarmerFarms from "../API/getFarmerFarms"
+
 import "./NewFarmInput.css"
 
 
-function NewFarmInput() {
+const NewFarmInput= ()=>{
 
-  const [farms, setFarms] = useState([]);
-  const [fertilizers, setFertilizers] = useState([]);
-  const [plants, setPlants] = useState([]);
-  const stateContext = useContext(StateContext);
-  const { user, getFertilizers, getPlants, getFarmerFarms } = stateContext;
-  
+  // const [farms, setFarms] = useState([]);
+  // const [fertilizers, setFertilizers] = useState([]);
+  // const [plants, setPlants] = useState([]);
+  // const stateContext = useContext(StateContext);
+  // const { user } = stateContext;
+  // const csrftoken = Cookies.get("csrftoken");
     // load fertilizers from API data and from global state
-    useEffect(() => {
-      // load all fertilizers
-      const fertilizerResponse=async ()=>{ await getFertilizers()}
-      setFertilizers(fertilizerResponse.json());
-    }, [getFertilizers]);
+    // useEffect(() => {
+    //   // load all fertilizers
+    //   const fertilizerResponse=getFertilizers(csrftoken)
+    //   setFertilizers(fertilizerResponse);
+
+    // }, [csrftoken]);
     
-    // load all plants in the database
-    useEffect(() => {
-      // load all fertilizers
-      const plantsResponse=async ()=>{ await getPlants()}
-      setPlants(plantsResponse.json());
-    }, [getPlants]);
-    useEffect(()=>{
-      // load all farms by the farmer
-      const farmResponse = async ({user}) => { 
-        await getFarmerFarms(user.id)}
-      setFarms(farmResponse.json())
-    },[getFarmerFarms, user.id])
+    // // load all plants in the database
+    // useEffect(() => {
+    //   // load all plants
+    //    const plants = getPlants(csrftoken)
+    //    setPlants(plants)
+     
+    // }, [csrftoken]);
+    // useEffect(()=>{
+    //   // load all farms by the farmer
+    //   const farmResponse = getFarmerFarms(user.id)}
+    //   setFarms(farmResponse)
+    // },[user.id])
+  //   const farmOptions = farms.map((farm, index) => {
+  //    return <option key={index} value={farm}>
+  //       {farm.name}
+  //     </option>
+  //   });
+  //   const fertilizerOptions = fertilizers.map((fertilizer, index) => {
+  //    return <option key={index} value={fertilizer}>
+  //       {fertilizer.fertilizer_name}
+  //     </option>
+  //   });
+  //  const plantOptions = plants.map((plant, index) =>{
+  //   return <option key={index} value={plant.name}>
+  //       {plant.name}
+  //     </option>
+// });
     return (
       <div>
         <div className="input_main">
           <h6>Add A New Farm input</h6>
           <div>
             <form>
-              <div class="form-row">
-                <div class="form-group col-md-6">
+              <div className="form-row">
+                <div className="form-group col-md-6">
                   <label for="fertilizers">Fertilizer</label>
                   <select id="fertilizers" className="form-control">
-                    <option selected>Choose fertilizer</option>
-                    {fertilizers.map((fertilizer,index) => {
-                      return (
-                        <option key={index} value={fertilizer}>
-                          {fertilizer}
-                        </option>
-                      );
-                    })}
+                    <option selected value="Choose fertilizers">
+                      Choose fertilizer
+                    </option>
+                    {/* {fertilizerOptions} */}
                   </select>
                 </div>
-                <div class="form-group col-md-6">
+                <div className="form-group col-md-6">
                   <label for="purpose">Purpose</label>
-                  <input type="text" class="form-control" id="purpose"></input>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="purpose"
+                  ></input>
                 </div>
               </div>
-              <div class="form-group">
+              <div className="form-group">
                 <label for="description">Description</label>
                 <textarea
-                  class="form-control"
+                  className="form-control"
                   id="description"
                   placeholder="how the input willbe done"
                 ></textarea>
               </div>
-              <div class="form-group">
+              <div className="form-group">
                 <label for="farm">Farm</label>
                 <select id="farm" className="form-control">
-                  <option selected>Choose the farm to apply this input</option>
-                  {farms.map((farm,index) => {
-                    return (
-                      <option key={index} value={farm}>
-                        {farm}
-                      </option>
-                    );
-                  })}
+                  <option selected value="Choose the farm to apply this input">
+                    Choose the farm to apply this input
+                  </option>
+                  {/* {farmOptions} */}
                 </select>
               </div>
-              <div class="form-row">
-                <div class="form-group col-md-3">
+              <div className="form-row">
+                <div className="form-group col-md-3">
                   <label for="inputCity">date</label>
                   <input
                     type="date"
-                    class="form-control"
+                    className="form-control"
                     id="inputCity"
                   ></input>
                 </div>
-                <div class="form-group col-md-4">
+                <div className="form-group col-md-4">
                   <label for="plant">Plant</label>
-                  <select id="plant" class="form-control">
-                    <option selected>
+                  <select id="plant" cclassName="form-control">
+                    <option
+                      selected
+                      value="Choose plant to apply the farminput"
+                    >
                       Choose plant to apply the farminput
                     </option>
-                    {plants.map((plant,index) => {
-                      return (
-                        <option key={index} value={plant}>
-                          {plant}
-                        </option>
-                      );
-                    })}
+                    {/* {plantOptions} */}
                   </select>
                 </div>
-                <div class="form-group col-md-2">
+                <div className="form-group col-md-2">
                   6433`11
                   <label for="calcvalue">calculation value</label>
                   <input
                     type="text"
                     readOnly={true}
                     value={0}
-                    class="form-control"
+                    className="form-control"
                     id="calcvalue"
                   ></input>
                 </div>
@@ -118,26 +132,26 @@ function NewFarmInput() {
                   <button
                     type="submit"
                     id="calcfarminputvalue"
-                    class="btn btn-outline-success btn-block"
+                    className="btn btn-outline-success btn-block"
                   >
                     Calculate
                   </button>
                 </div>
               </div>
-              <div class="form-group">
+              <div className="form-group">
                 <div class="form-check">
                   <input
-                    class="form-check-input"
+                    className="form-check-input"
                     type="checkbox"
                     id="schedule"
                   ></input>
-                  <label class="form-check-label" for="schedule">
+                  <label className="form-check-label" for="schedule">
                     Schedule
                   </label>
                 </div>
               </div>
 
-              <button type="submit" class="btn btn-primary btn-block">
+              <button type="submit" className="btn btn-primary btn-block">
                 Add Farm Input
               </button>
             </form>

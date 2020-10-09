@@ -1,14 +1,23 @@
-const getPlants = async () => {
+const getPlants = async (csrftoken) => {
   const url = "https://nutricalculator.herokuapp.com/calc/plants";
-  const call = await fetch(url)
+  const res = await fetch(url, {
+    method: "GET",
+    credentials: "same-origin",
+    headers: {
+      "X-CSRFToken": csrftoken,
+      // "kXi4Qapw1lDDTSNjmFwUbdWbf03SeQdOiKjEyFH0NcOLX9dKemoFHyUKPREfk09W",
+      "Accept": "application/json",
+      "Content-Type": "application/json",
+    },
+  })
     .then((response) => {
-      return response;
+      return response.json();
     })
     .catch((error) => {
       return error.message;
     });
-  const response = await call.json();
-  return response;
+  
+  return res;
 };
 
 export default getPlants;

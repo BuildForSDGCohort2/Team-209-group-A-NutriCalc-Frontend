@@ -1,15 +1,27 @@
 
 
- const getFertilizers= async ()=>{
+ const getFertilizers= async (csrftoken)=>{
     const url = "https://nutricalculator.herokuapp.com/calc/fertilizers"
-    const res=await fetch(url).then((response)=>{
-        console.log(response.json())
-        return response.json()
-    }).catch((error)=>{
-        return error
+    const res = await fetch(url, {
+      method: "GET",
+      credentials: "same-origin",
+      headers: {
+        "X-CSRFToken": csrftoken,
+        // "kXi4Qapw1lDDTSNjmFwUbdWbf03SeQdOiKjEyFH0NcOLX9dKemoFHyUKPREfk09W",
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+      },
     })
-    const results= await res.json()
-    return results
+      .then((response) => {
+        console.log(response.json());
+        return response.json();
+      })
+      .catch((error) => {
+          console.log(error)
+        return error;
+      });
+      return res
+    
 }
 
 export default getFertilizers
